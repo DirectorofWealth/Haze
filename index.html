@@ -1,68 +1,270 @@
 <!doctype html>
-<html>
+
+<html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <title>Haze</title>
+
   <link href="/src/style.css" rel="stylesheet">
+
 </head>
-<body class="bg-zinc-800 p-6"> 
 
-  <div id="title-display">
-    <h1 class="text-4xl font-bold mb-10 text-white text-center">
-      Discover the <span class="text-yellow-200">weather</span> in every city you go
-    </h1>
-    <!-- <h2 id="city-name"></h2>
-    <p id="country-name"></p> -->
-  </div>
 
-  <div>
-    <div class="flex items-center justify-center">
-      <form class="flex items-center w-full border border-yellow-200 rounded-full p-1 max-w-md bg-transparent shadow-yellow-100" id="searchForm">
-        
-        <input 
-          type="text" 
-          class="flex-1 bg-transparent px-4 py-2 text-gray-700 placeholder-gray-400 focus:outline-none rounded-3xl" 
-          placeholder="Enter your city..." 
-          id="searchInput" 
-        />
-        
-        <button 
-          type="submit" 
-          class="bg-yellow-300 hover:bg-yellow-400 text-gray-800 font-medium px-6 py-2 rounded-full transition-colors cursor-pointer" 
-          id="searchButton"
+<body class="min-h-screen bg-black text-white flex items-center justify-center p-4">
+
+
+
+
+  <main
+    class="relative w-full max-w-6xl min-h-[500px] overflow-hidden rounded-[28px] bg-zinc-900/95 px-6 py-8 shadow-2xl md:px-12"
+  >
+
+
+    <!-- AMBIENT GLOW -->
+
+    <div
+      class="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-yellow-300/20 blur-3xl"
+    ></div>
+
+    <div
+      class="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-yellow-300/10 blur-3xl"
+    ></div>
+
+    
+    
+    <!-- CURRENT DETAILS -->
+
+      <section id="current-details" hidden>
+
+        <!-- TOP CURRENT WEATHER -->
+
+        <div class="flex flex-col items-center justify-between gap-6 md:flex-row mb-10">
+  
+  
+          <!-- LOCATION + CONDITION -->
+  
+          <div class="flex items-center gap-5">
+  
+            <div
+              id="current-icon"
+              class="text-6xl"
+            >
+              🌤️
+            </div>
+  
+  
+            <div>
+  
+              <h2
+                id="current-city"
+                class="text-4xl font-bold"
+              >
+                Lagos
+              </h2>
+  
+            </div>
+  
+          </div>
+  
+  
+          <!-- CURRENT TIME -->
+  
+          <div class="text-center md:text-right">
+  
+            <p
+              id="current-time"
+              class="text-lg font-medium"
+            >
+              Wednesday 3:00 PM
+            </p>
+  
+            <p
+              id="current-condition"
+              class="text-zinc-400"
+            >
+              Rain
+            </p>
+  
+          </div>
+  
+        </div>
+      </section>
+
+    <!-- LANDING / CITY TITLE -->
+
+
+    <section
+      id="title-display"
+      class="relative z-10 text-center"
+    >
+
+      <h1 class="text-3xl font-bold leading-tight md:text-6xl">
+
+        Discover the
+        <span class="text-yellow-300">weather</span>
+
+        <br>
+
+        in every city you go
+
+      </h1>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="relative z-10 mt-8">
+
+      <form
+        id="searchForm"
+        class="mx-auto flex w-full max-w-2xl items-center rounded-full bg-zinc-800 p-1.5"
+      >
+
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Enter the city"
+          autocomplete="off"
+          class="min-w-0 flex-1 bg-transparent px-5 py-3 text-white outline-none placeholder:text-zinc-500"
         >
+
+        <button
+          id="searchButton"
+          type="submit"
+          class="rounded-full bg-yellow-300 px-7 py-3 font-medium text-zinc-900 transition hover:bg-yellow-400 cursor-pointer"
+        >
+
           Search
+
         </button>
 
       </form>
-    </div>
- 
-    <div id="weather-info" class="mt-6 text-yellow-300" hidden>
 
-      <p id="condition"></p>
-  
-      <p id="temperature"></p>
-  
-      <p id="wind-speed"></p>
-  
-      <p id="humidity"></p>
-  
-      <p id="cloud-cover"></p>
-  
-  </div>
-  </div>
+    </section>
 
-  <section id="week-days" class="text-white mt-10">
 
-    <div
-        id="forecast-container"
-        class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4"
+    <!-- CURRENT WEATHER -->
+
+    <section
+      id="weather-info"
+      hidden
+      class="relative z-10 mt-8"
     >
-    </div>
 
-</section>
-  
 
-  <script src="/src/main.js"></script>
+      <div
+        class="mt-8 grid grid-cols-2 gap-6 text-center md:grid-cols-4"
+      >
+
+
+        <!-- TEMPERATURE -->
+
+        <div>
+
+          <p
+            id="temperature"
+            class="text-3xl font-bold"
+          >
+            --
+          </p>
+
+          <p class="mt-1 text-sm text-zinc-400">
+            Temperature
+          </p>
+
+        </div>
+
+
+        <!-- WIND -->
+
+        <div>
+
+          <p
+            id="wind-speed"
+            class="text-3xl font-bold"
+          >
+            --
+          </p>
+
+          <p class="mt-1 text-sm text-zinc-400">
+            Wind
+          </p>
+
+        </div>
+
+
+        <!-- HUMIDITY -->
+
+        <div>
+
+          <p
+            id="humidity"
+            class="text-3xl font-bold"
+          >
+            --
+          </p>
+
+          <p class="mt-1 text-sm text-zinc-400">
+            Humidity
+          </p>
+
+        </div>
+
+
+        <!-- CLOUD -->
+
+        <div>
+
+          <p
+            id="cloud-cover"
+            class="text-3xl font-bold"
+          >
+            --
+          </p>
+
+          <p class="mt-1 text-sm text-zinc-400">
+            Cloud rate
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- 7 DAY FORECAST -->
+
+      <div
+        id="forecast-container"
+        class="mt-8 grid grid-cols-2 gap-3 rounded-3xl bg-zinc-800/80 p-5 sm:grid-cols-4 md:grid-cols-7"
+      >
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ERROR MESSAGE -->
+
+    <p
+      id="error-message"
+      hidden
+      class="relative z-10 mt-5 text-center text-red-400"
+    ></p>
+
+
+  </main>
+
+
+  <script type="module" src="/src/js/main.js"></script>
 </body>
+
 </html>
