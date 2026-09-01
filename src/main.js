@@ -47,6 +47,44 @@ function getWeatherDescription(weather_code) {
 }
 
 
+function getWeatherIcon(weather_code) {
+
+    if (weather_code === 0) {
+        return "☀️";
+    }
+
+    if (weather_code === 1) {
+        return "🌤️";
+    }
+
+    if (weather_code === 2) {
+        return "⛅";
+    }
+
+    if (weather_code === 3) {
+        return "☁️";
+    }
+
+    if (weather_code === 51 || weather_code === 53 || weather_code === 55) {
+        return "🌦️";
+    }
+
+    if (weather_code === 61 || weather_code === 63 || weather_code === 65) {
+        return "🌧️";
+    }
+
+    if (weather_code === 80 || weather_code === 81 || weather_code === 82) {
+        return "🌦️";
+    }
+
+    if (weather_code === 95) {
+        return "⛈️";
+    }
+
+    return "❓";
+}
+
+
 searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -139,7 +177,7 @@ searchForm.addEventListener("submit", async (event) => {
                 <p class="font-semibold">${dayName}</p>
         
                 <div class="text-3xl my-4">
-                    ☁️
+                    ${getWeatherIcon(day.weatherCode)}
                 </div>
         
                 <p class="text-xl font-bold">
