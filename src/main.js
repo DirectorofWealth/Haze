@@ -23,6 +23,26 @@ function getWeatherDescription(weather_code) {
         return "Overcast";
     }
 
+    if (weather_code === 51 || weather_code === 53 || weather_code === 55) {
+        return "Drizzle";
+    }
+
+    if (weather_code === 61 || weather_code === 63 || weather_code === 65) {
+        return "Rain";
+    }
+
+    if (weather_code === 71 || weather_code === 73 || weather_code === 75) {
+        return "Snow";
+    }
+
+    if (weather_code === 80 || weather_code === 81 || weather_code === 82) {
+        return "Rain showers";
+    }
+
+    if (weather_code === 95) {
+        return "Thunderstorm";
+    }
+
     return "Unknown";
 }
 
@@ -71,7 +91,6 @@ searchForm.addEventListener("submit", async (event) => {
             throw new Error("Couldn't fetch weather data");
         }
     
-        console.log(weatherData);
     
         const {
             temperature_2m,
@@ -87,19 +106,41 @@ searchForm.addEventListener("submit", async (event) => {
             temperature_2m_max,
             weather_code: dailyWeatherCodes
         } = weatherData.daily;
-
-
+        
+        
         const forecast = time.map((date, index) => {
-
-            return  {
+        
+            return {
                 date: date,
                 temperature: temperature_2m_max[index],
                 weatherCode: dailyWeatherCodes[index]
             };
-
+        
         });
-
-        console.log(forecast)
+        
+        
+        const forecastContainer = document.querySelector("#forecast-container");
+        
+        forecastContainer.innerHTML = "";
+        
+        
+        forecast.map(day => {
+        
+            const card = document.createElement("div");
+        
+            const dayName = new Date(day.date).toLocaleDateString("en-US", {
+                weekday: "short"
+            });
+        
+            card.innerHTML = `
+                <p>${dayName}</p>
+                <p>${day.temperature}°C</p>
+                <p>${getWeatherDescription(day.weatherCode)}</p>
+            `;
+        
+            forecastContainer.appendChild(card);
+        
+        });
     
     
         document.querySelector("#temperature").textContent =
@@ -120,7 +161,7 @@ searchForm.addEventListener("submit", async (event) => {
     
         const description = getWeatherDescription(weather_code);
     
-        console.log(description);
+        // console.log(description);
     
         document.querySelector("#condition").textContent = description;
    
