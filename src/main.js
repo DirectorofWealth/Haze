@@ -113,6 +113,8 @@ searchForm.addEventListener("submit", async (event) => {
     
     
         const {
+            name,
+            country,
             latitude,
             longitude
         } = data.results[0];
@@ -192,7 +194,15 @@ searchForm.addEventListener("submit", async (event) => {
             forecastContainer.appendChild(card);
         });
     
+        const titleDisplay = document.querySelector("#title-display h1")
+
+        const newCity = name
+        const newCountry = country
     
+
+        titleDisplay.innerHTML = `${newCity}, <span class="text-yellow-200">${newCountry}</span>`;
+
+        
         document.querySelector("#temperature").textContent =
             `${temperature_2m}°C`;
     
