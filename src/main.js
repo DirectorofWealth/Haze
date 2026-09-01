@@ -30,71 +30,104 @@ function getWeatherDescription(weather_code) {
 searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const city = searchInput.value.trim();
+    try {
+        const city = searchInput.value.trim();
 
-    if (!city) {
-        console.log("Please enter a city");
-        return;
+        if (!city) {
+            console.log("Please enter a city");
+            return;
+        }
+    
+        const response = await fetch(
+            `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+        );
+
+
+        if (!response.ok) {
+            throw new Error("Couldn't fetch location data");
+        }
+    
+        const data = await response.json();
+    
+        if (!data.results || data.results.length === 0) {
+            throw new Error("City not found");
+        }
+    
+    
+        const {
+            latitude,
+            longitude
+        } = data.results[0];
+    
+    
+        const weatherResponse = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m,weather_code&daily=temperature_2m_max,weather_code&forecast_days=7`
+        );
+    
+        const weatherData = await weatherResponse.json();
+    
+    
+        if (!weatherResponse.ok) {
+            throw new Error("Couldn't fetch weather data");
+        }
+    
+        console.log(weatherData);
+    
+        const {
+            temperature_2m,
+            relative_humidity_2m,
+            cloud_cover,
+            wind_speed_10m,
+            weather_code
+        } = weatherData.current;
+
+
+        const {
+            time,
+            temperature_2m_max,
+            weather_code: dailyWeatherCodes
+        } = weatherData.daily;
+
+
+        const forecast = time.map((date, index) => {
+
+            return  {
+                date: date,
+                temperature: temperature_2m_max[index],
+                weatherCode: dailyWeatherCodes[index]
+            };
+
+        });
+
+        console.log(forecast)
+    
+    
+        document.querySelector("#temperature").textContent =
+            `${temperature_2m}°C`;
+    
+        document.querySelector("#humidity").textContent =
+            `${relative_humidity_2m}%`;
+    
+        document.querySelector("#cloud-cover").textContent =
+            `${cloud_cover}%`;
+    
+        document.querySelector("#wind-speed").textContent =
+            `${wind_speed_10m} km/h`;
+    
+    
+        document.querySelector("#weather-info").hidden = false;
+    
+    
+        const description = getWeatherDescription(weather_code);
+    
+        console.log(description);
+    
+        document.querySelector("#condition").textContent = description;
+   
+   
+    } catch (error) {
+        console.log(`Error: ${error.message}`);
+
     }
 
-    const response = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
-    );
-
-    const data = await response.json();
-
-    console.log(data);
-
-    const {
-        latitude,
-        longitude
-    } = data.results[0];
-
-    console.log(latitude);
-    console.log(longitude);
-
-
-    const weatherResponse = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m,weather_code`
-    );
-
-    const weatherData = await weatherResponse.json();
-
-    console.log(weatherData);
-
-    const {
-        temperature_2m,
-        relative_humidity_2m,
-        cloud_cover,
-        wind_speed_10m,
-        weather_code
-    } = weatherData.current;
-
-    console.log(temperature_2m);
-    console.log(relative_humidity_2m);
-    console.log(cloud_cover);
-    console.log(wind_speed_10m);
-
-
-    document.querySelector("#temperature").textContent =
-        `${temperature_2m}°C`;
-
-    document.querySelector("#humidity").textContent =
-        `${relative_humidity_2m}%`;
-
-    document.querySelector("#cloud-cover").textContent =
-        `${cloud_cover}%`;
-
-    document.querySelector("#wind-speed").textContent =
-        `${wind_speed_10m} km/h`;
-
-
-    document.querySelector("#weather-info").hidden = false;
-
-
-    const description = getWeatherDescription(weather_code);
-
-    console.log(description);
-
-    document.querySelector("#condition").textContent = description;
 });
