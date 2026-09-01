@@ -125,21 +125,33 @@ searchForm.addEventListener("submit", async (event) => {
         
         
         forecast.map(day => {
-        
+
             const card = document.createElement("div");
         
             const dayName = new Date(day.date).toLocaleDateString("en-US", {
                 weekday: "short"
             });
         
+            card.className =
+                "bg-zinc-700 rounded-2xl p-4 text-center";
+        
             card.innerHTML = `
-                <p>${dayName}</p>
-                <p>${day.temperature}°C</p>
-                <p>${getWeatherDescription(day.weatherCode)}</p>
+                <p class="font-semibold">${dayName}</p>
+        
+                <div class="text-3xl my-4">
+                    ☁️
+                </div>
+        
+                <p class="text-xl font-bold">
+                    ${day.temperature}°C
+                </p>
+        
+                <p class="text-sm text-gray-300 mt-2">
+                    ${getWeatherDescription(day.weatherCode)}
+                </p>
             `;
         
             forecastContainer.appendChild(card);
-        
         });
     
     
