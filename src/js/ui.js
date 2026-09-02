@@ -117,6 +117,10 @@ export function displayForecast(forecast) {
                 ${getWeatherIcon(day.weatherCode)}
             </div>
 
+            <p class="text-sm text-zinc-400">
+                ${getWeatherDescription(day.weatherCode)}
+            </p>
+
             <div>
 
                 <span class="font-semibold">
