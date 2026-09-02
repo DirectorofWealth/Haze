@@ -38,6 +38,8 @@ searchForm.addEventListener("submit", async (event) => {
     errorMessage.hidden = true;
     errorMessage.textContent = "";
 
+    clearWeatherDisplay();
+    
 
     try {
 
