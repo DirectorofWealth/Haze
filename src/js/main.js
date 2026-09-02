@@ -23,10 +23,16 @@ const searchInput =
 const errorMessage =
     document.querySelector("#error-message");
 
+const searchButton =
+    document.querySelector("#searchButton");
+
 
 searchForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
+    
+    searchButton.disabled = true;
+    searchButton.textContent = "Loading...";
 
 
     try {
