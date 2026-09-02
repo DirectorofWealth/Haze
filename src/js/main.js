@@ -97,6 +97,9 @@ searchForm.addEventListener("submit", async (event) => {
 
         searchButton.disabled = false;
         searchButton.textContent = "Search"
+
+        searchInput.value = "";
+
     }
 
 });
