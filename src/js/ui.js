@@ -7,7 +7,8 @@ import {
 export function displayLocation(location, weather) {
 
     const {
-        name
+        name,
+        country
     } = location;
 
     const {
@@ -27,8 +28,8 @@ export function displayLocation(location, weather) {
         getWeatherIcon(weather_code);
 
 
-    document.querySelector("#current-city").textContent =
-        name;
+    document.querySelector("#current-city").innerHTML =
+        `${name}, <span class = "text-yellow-200"> ${country}</span`;
 
 
 
