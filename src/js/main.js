@@ -10,7 +10,8 @@ import {
 import {
     displayLocation,
     displayCurrentWeather,
-    displayForecast
+    displayForecast,
+    clearWeatherDisplay
 } from "./ui.js";
 
 
@@ -30,9 +31,12 @@ const searchButton =
 searchForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-    
+
     searchButton.disabled = true;
     searchButton.textContent = "Loading...";
+    
+    errorMessage.hidden = true;
+    errorMessage.textContent = "";
 
 
     try {
@@ -44,9 +48,6 @@ searchForm.addEventListener("submit", async (event) => {
         if (!city) {
             throw new Error("Please enter a city");
         }
-
-
-        errorMessage.hidden = true;
 
 
         const location =
@@ -82,14 +83,20 @@ searchForm.addEventListener("submit", async (event) => {
 
     } catch (error) {
 
+        clearWeatherDisplay();
+
         errorMessage.textContent =
             error.message;
 
         errorMessage.hidden = false;
 
-        console.log(
-            `Error: ${error.message}`
-        );
+        console.log("SEARCH ERROR:", error.message);
+
+
+    } finally {
+
+        searchButton.disabled = false;
+        searchButton.textContent = "Search"
     }
 
 });

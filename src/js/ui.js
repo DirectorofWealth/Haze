@@ -135,3 +135,14 @@ export function displayForecast(forecast) {
         forecastContainer.appendChild(card);
     });
 }
+
+
+export function clearWeatherDisplay() {
+
+    document.querySelector("#current-details").hidden = true;
+
+    document.querySelector("#weather-info").hidden = true;
+
+    document.querySelector("#title-display").hidden = false;
+
+}
