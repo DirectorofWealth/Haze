@@ -29,7 +29,7 @@ export function displayLocation(location, weather) {
 
 
     document.querySelector("#current-city").innerHTML =
-        `${name}, <span class = "text-yellow-200"> ${country}</span`;
+        `${name}, <span class= "text-yellow-200"> ${country}</span>`;
 
 
 
@@ -37,7 +37,9 @@ export function displayLocation(location, weather) {
 
     const formattedDate =
         date.toLocaleDateString("en-US", {
-            weekday: "long"
+            weekday : "long",
+            month: "long",
+            day: "numeric"
         });
 
 
