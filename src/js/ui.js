@@ -13,8 +13,9 @@ export function displayLocation(location, weather) {
 
     const {
         weather_code,
-        time
     } = weather.current;
+
+    const targetTimezone = weather.timezone
 
 
     document.querySelector("#title-display").hidden = true;
@@ -33,20 +34,23 @@ export function displayLocation(location, weather) {
 
 
 
-    const date = new Date(time);
+    const now = new Date();
 
     const formattedDate =
-        date.toLocaleDateString("en-US", {
+        now.toLocaleDateString("en-US", {
             weekday : "long",
             month: "long",
-            day: "numeric"
+            day: "numeric",
+            timezone: targetTimezone
         });
 
 
     const formattedTime =
-        date.toLocaleTimeString("en-US", {
+        now.toLocaleTimeString("en-US", {
             hour: "numeric",
-            minute: "2-digit"
+            minute: "2-digit",
+            timezone: targetTimezone
+
         });
 
 
