@@ -63,6 +63,7 @@ export function displayCurrentWeather(weather) {
 
     const {
         temperature_2m,
+        apparent_temperature,
         relative_humidity_2m,
         cloud_cover,
         wind_speed_10m
@@ -71,6 +72,9 @@ export function displayCurrentWeather(weather) {
 
     document.querySelector("#temperature").textContent =
         `${temperature_2m}°C`;
+
+    document.querySelector("#feels-like").textContent =
+        `${apparent_temperature}°C`;
 
 
     document.querySelector("#humidity").textContent =
@@ -129,11 +133,11 @@ export function displayForecast(forecast) {
 
             <div>
 
-                <span class="font-semibold">
+                <span class="font-semibold text-lg">
                     ${Math.round(day.temperatureMax)}°
                 </span>
 
-                <span class="text-zinc-400">
+                <span class="text-zinc-400 text-sm">
                     ${Math.round(day.temperatureMin)}°
                 </span>
 
