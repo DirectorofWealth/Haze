@@ -31,6 +31,9 @@ export function displayLocation(location, weather) {
     const locationName = 
         (name === country ? country : `${name}, <span class= "text-yellow-200"> ${country}</span>`);
 
+
+    document.querySelector("#current-city").innerHTML = locationName;
+
     document.querySelector("#current-city").innerHTML = locationName;
 
 
@@ -41,7 +44,7 @@ export function displayLocation(location, weather) {
             weekday : "long",
             month: "long",
             day: "numeric",
-            timezone: targetTimezone
+            timeZone: targetTimezone
         });
 
 
@@ -49,7 +52,7 @@ export function displayLocation(location, weather) {
         now.toLocaleTimeString("en-US", {
             hour: "numeric",
             minute: "2-digit",
-            timezone: targetTimezone
+            timeZone: targetTimezone
 
         });
 

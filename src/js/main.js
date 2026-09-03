@@ -24,7 +24,7 @@ const searchInput =
 const errorMessage =
     document.querySelector("#error-message");
 
-    const loadingMessage =
+const loadingMessage =
     document.querySelector("#loading-message");
 
 const searchButton =
