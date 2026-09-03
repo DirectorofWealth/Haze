@@ -24,6 +24,9 @@ const searchInput =
 const errorMessage =
     document.querySelector("#error-message");
 
+    const loadingMessage =
+    document.querySelector("#loading-message");
+
 const searchButton =
     document.querySelector("#searchButton");
 
@@ -31,6 +34,8 @@ const searchButton =
 searchForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
+
+    loadingMessage.hidden = false;
 
     searchButton.disabled = true;
     searchButton.textContent = "Loading...";
@@ -99,6 +104,9 @@ searchForm.addEventListener("submit", async (event) => {
 
         searchButton.disabled = false;
         searchButton.textContent = "Search"
+
+        loadingMessage.hidden = true;
+
 
         searchInput.value = "";
 
