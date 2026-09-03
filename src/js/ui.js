@@ -103,11 +103,14 @@ export function displayForecast(forecast) {
         const dayName =
             new Date(`${day.date}T12:00:00`)
                 .toLocaleDateString("en-US", {
-                    weekday: "short"
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric"
+
                 });
 
 
-        card.className = "text-center";
+        card.className = "text-center mb-2";
 
 
         card.innerHTML = `
