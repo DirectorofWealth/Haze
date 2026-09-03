@@ -28,10 +28,10 @@ export function displayLocation(location, weather) {
     document.querySelector("#current-icon").textContent =
         getWeatherIcon(weather_code);
 
+    const locationName = 
+        (name === country ? country : `${name}, <span class= "text-yellow-200"> ${country}</span>`);
 
-    document.querySelector("#current-city").innerHTML =
-        `${name}, <span class= "text-yellow-200"> ${country}</span>`;
-
+    document.querySelector("#current-city").innerHTML = locationName;
 
 
     const now = new Date();
